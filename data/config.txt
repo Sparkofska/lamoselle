@@ -1,0 +1,1 @@
+APPID = # Add API-key from http://openweathermap.org/appid
