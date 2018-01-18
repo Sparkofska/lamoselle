@@ -1,7 +1,65 @@
 {% extends "BasePanel.html" %}
 
-{% block panel_heading %} Heading  {% endblock %}
+{% block panel_heading %} Messwerte  {% endblock %}
 
 {% block panel_content %}
-Content
+
+<div class="row">
+  <div class="col col-xs-12 col-sm-6">
+    <div class="row">
+      <div class="col col-xs-6">
+        <div class="temp-disp">
+          <h2>{{ mosel.water_temp }}</h2>
+          Wassertemperatur
+        </div>
+      </div>
+      <div class="col col-xs-6">
+        <div class="temp-disp">
+          <h2>{{ weather.air_temp }}</h2>
+          Lufttemperatur
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-xs-12">
+        <div class="weather-icon-wrapper">
+          <img class="weather-icon" src="{{ url_for('static', filename='grafic/weathericons/' + weather.icon + '.svg') }}" />
+          {{ weather.description }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col col-xs-12 col-sm-6">
+    <table class="table table-hover table-slim">
+      <tbody>
+        <tr>
+          <td>Sonnenuntergang</td>
+          <td>{{ weather.sunset }}</td>
+        </tr>
+        <tr>
+          <td>Bew&ouml;lkt</td>
+          <td>{{ weather.clouds }}</td>
+        </tr>
+        <tr>
+          <td>Wind</td>
+          <td>{{ weather.wind }}</td>
+        </tr>
+        <tr>
+          <td>Luftfeuchtigkeit</td>
+          <td>{{ weather.humidity }}</td>
+        </tr>
+        <tr>
+          <td>Wasserstand</td>
+          <td>{{ mosel.hoehe }}</td>
+        </tr>
+        <tr>
+          <td>Tr&uuml;bung</td>
+          <td>{{ mosel.truebung }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
 {% endblock %}

@@ -7,8 +7,13 @@ from pathlib import Path
 import json
 import configparser
 
+_CONFIG_FILE = "data/config.txt"
 _CACHE_FILE = "data/weather_cache.json"
 _TS_FORMAT = "%d.%m.%Y %H:%M"
+
+def debugp(msg):
+    if True:
+        print(msg)
 
 def __get_url():
     url = "http://api.openweathermap.org/data/2.5/weather?"
@@ -18,12 +23,9 @@ def __get_url():
 
     config = configparser.ConfigParser()
     config.read(_CONFIG_FILE)
-    url += "&APPID=" + config['APPID'] # API key from openweathermap.org
+    url += "&APPID=" + config['APPID']['APPID'] # API key from openweathermap.org
+    debugp('url: ' + url)
     return url
-
-def debugp(msg):
-    if False:
-        print(msg)
 
 def _is_valid(weather):
     return weather['cod'] == 200

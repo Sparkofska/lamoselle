@@ -35,6 +35,7 @@ def _prepare_weather_data():
 def index():
     mosel = _prepare_mosel_data()
     weather = _prepare_weather_data()
+    print(weather)
     return render_template('HomePage.html', mosel=mosel, weather=weather)
 
 @app.route('/about')
