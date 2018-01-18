@@ -1,0 +1,105 @@
+{% extends "BasePanel.html" %}
+
+{% block panel_heading %} Rangliste {% endblock %}
+
+{% block panel_content %}
+
+<script>
+function load_ranking() {
+  $('#ranking-table-loading').show();
+  $('#ranking-table-wrapper').html('');
+  $.ajax({
+    url: '/ranktab',
+    type: 'GET',
+    success: function(data) {
+      $('#ranking-table-wrapper').html(data);
+      $('#moselranking').addClass('table table-hover table-slim centered');
+      $('#ranking-table-loading').hide();
+    },
+    error: function(data) {
+      console.log(data);
+      $('#ranking-table-wrapper').html('Die Ranking Tabelle konnte nicht geladen werden.');
+      $('#ranking-table-loading').hide();
+    }
+  });
+};
+$( document ).ready(load_ranking);
+
+function generate_feedback(type, title, message) {
+  html = '<div class="alert alert-'+type+' alert-dismissible" role="alert">';
+  html += '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+  html += '<strong>'+title+'</strong>&nbsp;';
+  html += '<span>'+message+'</span></div>';
+  return html;
+}
+
+function rank_submit() {
+  $.ajax({
+    type: 'GET',
+    url: $('#rank-form').attr("action"),
+    data: $('#rank-form').serialize(),
+    success: function(response) {
+      load_ranking();
+      var type;
+      if(response.code == 0)
+        type = 'success';
+      else
+        type = 'danger';
+      $('#feedback-wrapper').html(generate_feedback(type, response.title, response.msg));
+    },
+    error: function(xhr, status, error) {
+      $('#feedback-wrapper').html(generate_feedback('danger', 'Server Error: ', $.parseJSON(xhr.responseText)));
+    }
+  });
+  $('#rank-form').find('input:text').val('');
+};
+
+</script>
+
+<div class="panel panel-default">
+  <div class="panel-heading" style="text-align:center;">
+    <h3 class="panel-title" data-toggle="collapse" data-target="#rankbox"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Ich war heute baden</h3>
+  </div>
+  <div class="panel-body collapse" id="rankbox">
+    <p>
+    Hier kann sich jeder, der ein Bad in der Mosel gewagt hat, in der Mosel-Rangliste eintragen (max. 1x pro Tag).
+    Je kälter die Wassertemperatur, desto mehr Punkte werden vergeben.
+    Verwende dazu immer den gleichen Benutzernamen, damit die Punkte dem richtigen Konto zugeordnet werden.
+    Wer am Ende des Jahres die meisten Punkte gesammelt hat, gewinnt.
+    </p>
+
+    <div id="feedback-wrapper"> </div>
+
+    <form id="rank-form" action="{{ url_for('post') }}" onsubmit="rank_submit(); return false;" method="get">
+      <div class="form-group">
+        <label for="name">Name:</label>
+
+        <div class="row">
+          <div class="col col-xs-12 col-sm-8" style="margin-bottom:10px;">
+            <input type="text" class="form-control" name="name" placeholder="Benutzername">
+          </div>
+          <div class="col col-xs-12 col-sm-4">
+            <button type="submit" class="btn btn-danger fullwidth"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> Eintragen</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col col-xs-12">
+    <div style="display: block; text-align:center;">
+      <img id="ranking-table-loading" src="{{ url_for('static', filename='grafic/ajax-loader.svg') }}" />
+    </div>
+    <div class="horizontal-scroll" id="ranking-table-wrapper">
+      {# The table will be loaded by ajax as sonn as dom is ready #}
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
