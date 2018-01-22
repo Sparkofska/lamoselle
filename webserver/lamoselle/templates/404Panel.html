@@ -1,0 +1,9 @@
+{% extends "BasePanel.html" %}
+
+{% block panel_heading %} 404 - Seite nicht gefunden  {% endblock %}
+
+{% block panel_content %}
+Die angeforderte Seite existiert nicht. Überprüfe die URL auf Tippfehler oder
+versuche die gewünschte Seite von der <a href="{{ url_for('index')
+}}">Startseite</a> aus zu finden.
+{% endblock %}

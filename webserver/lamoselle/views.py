@@ -39,7 +39,7 @@ def index():
     return render_template('HomePage.html', mosel=mosel, weather=weather)
 
 @app.route('/about')
-def measurement():
+def about():
     return render_template('AboutPage.html')
 
 @app.route('/ajax')
@@ -73,3 +73,13 @@ def post():
     result['msg'] = 'Du hast '+ str(score) +' Punkte für den Badegang erhalten.'
     result['title'] = 'Glückwunsch, ' + username + "!"
     return jsonify(result)
+
+@app.errorhandler(404)
+@app.route('/404')
+def page_not_found(e):
+        return render_template('404Page.html'), 404
+
+@app.errorhandler(500)
+@app.route('/500')
+def internal_error(e):
+        return render_template('500Page.html'), 500

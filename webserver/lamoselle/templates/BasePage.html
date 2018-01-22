@@ -8,7 +8,8 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='grafic/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='grafic/favicon.ico') }}" type="image/x-icon">
 
     <title>LaMoselle</title>
 
@@ -38,7 +39,11 @@
         <div class="page-header">
           <h1>LaMoselle</h1>
         </div>
-        <p>Ein Sprung ins kühle Nass - Hui, das macht Spaß!</p>
+        <p>
+        {% block sub %}
+        Ein Sprung ins kühle Nass - Hui, das macht Spaß!
+        {% endblock %}
+        </p>
         <!--
           <div class="row">
           <div class="col col-xs-6 col-sm-3" style="padding-top:20px">
@@ -64,7 +69,7 @@
 
       <footer class="well">
         <span class="footer-element">Serverzeit: XXX</span>
-        <a href="#" class="footer-element">&Uuml;ber</a>
+        <a href="{{url_for('about')}}" class="footer-element">&Uuml;ber</a>
         <a href="#top" class="footer-element">Nach oben&nbsp;<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></span></a>
       </footer>
 
