@@ -47,6 +47,14 @@ class RankingTableManager(BaseTableManager):
                 ) 
         self.insert_tuple(tup)
 
+    def delete_all(self):
+
+        conn = self.get_db()
+        c = conn.cursor()
+        c.execute("DELETE FROM %s" % self.TABLE_NAME)
+        conn.commit()
+        self.close_db()
+
     def read_all(self):
         conn = self.get_db()
         c = conn.cursor()
