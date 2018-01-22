@@ -44,7 +44,7 @@
         Ein Sprung ins kühle Nass - Hui, das macht Spaß!
         {% endblock %}
         </p>
-        <!--
+        {#
           <div class="row">
           <div class="col col-xs-6 col-sm-3" style="padding-top:20px">
           <button type="button" class="btn btn-lg btn-warning fullwidth">Rangliste</button>
@@ -59,7 +59,7 @@
           <button type="button" class="btn btn-lg btn-warning fullwidth">Primary</button>
           </div>
           </div>
-        -->
+          #}
       </div>
 
 
@@ -68,26 +68,10 @@
       {% endblock %}
 
       <footer class="well">
-        <span class="footer-element">Serverzeit: XXX</span>
+        <span class="footer-element">Serverzeit: {{ servertime }}</span>
         <a href="{{url_for('about')}}" class="footer-element">&Uuml;ber</a>
         <a href="#top" class="footer-element">Nach oben&nbsp;<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></span></a>
       </footer>
-
-      <!--
-        <div class="well">
-        <div class="page-header">
-        <h1>Badges</h1>
-        </div>
-        <p>
-        <a href="#">Inbox <span class="badge">42</span></a>
-        </p>
-        <ul class="nav nav-pills" role="tablist">
-        <li role="presentation" class="active"><a href="#">Home <span class="badge">42</span></a></li>
-        <li role="presentation"><a href="#">Profile</a></li>
-        <li role="presentation"><a href="#">Messages <span class="badge">3</span></a></li>
-        </ul>
-        </div>
-      -->
 
 
     </div> <!-- /container -->

@@ -1,3 +1,4 @@
+import datetime
 from lamoselle import app
 from flask import render_template, request, jsonify
 
@@ -82,4 +83,8 @@ def page_not_found(e):
 @app.errorhandler(500)
 @app.route('/500')
 def internal_error(e):
-        return render_template('500Page.html'), 500
+    return render_template('500Page.html', errmsg=e), 500
+
+@app.context_processor
+def inject_datetime():
+    return dict(servertime=datetime.datetime.now().strftime("%d.%m.%Y %H:%M"))
